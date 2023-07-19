@@ -1,0 +1,197 @@
+//INCLUYE LAS LIBRERIAS NECESARIAS
+#include "librerias_lab1.h"
+
+
+//LIBRERÍAS*************************************************************************************
+void ioc_init (char pin){ //LIBRERÍA PARA ELEGIR EL PIN DEL PUERTO B PARA HABILITARLO COMO ENTRADA
+    INTCONbits.RBIE = 1;//HABILITA LA INTERRUPCIÓN
+    INTCONbits.RBIF = 0; //LIMPIA LA BANDERA
+    OPTION_REGbits.nRBPU = 0; 
+    
+    switch (pin)
+    {
+        case 0:
+            TRISBbits.TRISB0 = 1; //HABILITA EL PUERTO 1 COMO ENTRADA
+            PORTBbits.RB0 = 0; //LIMPIA EL PUERTO
+          
+            WPUBbits.WPUB0 = 1; //HABILITA EL PULL UP DEL PUERTO B EN EL PIN 0
+            IOCBbits.IOCB0 = 1; //HABILITA LA INTERRUPCIÓN DEL PIN 0
+            break;
+            
+        case 1:
+            TRISBbits.TRISB1 = 1; //HABILITA EL PUERTO 1 COMO ENTRADA
+            PORTBbits.RB1 = 0; //LIMPIA EL PUERTO
+          
+            WPUBbits.WPUB1 = 1; //HABILITA EL PULL UP DEL PUERTO B EN EL PIN 1
+            IOCBbits.IOCB1 = 1; //HABILITA LA INTERRUPCIÓN DEL PIN 1
+            break;
+            
+        case 2:
+            TRISBbits.TRISB2 = 1; //HABILITA EL PUERTO 1 COMO ENTRADA
+            PORTBbits.RB2 = 0; //LIMPIA EL PUERTO
+          
+            WPUBbits.WPUB2 = 1; //HABILITA EL PULL UP DEL PUERTO B EN EL PIN 2
+            IOCBbits.IOCB2 = 1; //HABILITA LA INTERRUPCIÓN DEL PIN 2
+            break;
+            
+        case 3:
+            TRISBbits.TRISB3 = 1; //HABILITA EL PUERTO 1 COMO ENTRADA
+            PORTBbits.RB3 = 0; //LIMPIA EL PUERTO
+          
+            WPUBbits.WPUB3 = 1; //HABILITA EL PULL UP DEL PUERTO B EN EL PIN 3
+            IOCBbits.IOCB3 = 1; //HABILITA LA INTERRUPCIÓN DEL PIN 3
+            break;
+            
+        case 4:
+            TRISBbits.TRISB4 = 1; //HABILITA EL PUERTO 1 COMO ENTRADA
+            PORTBbits.RB4 = 0; //LIMPIA EL PUERTO
+          
+            WPUBbits.WPUB4 = 1; //HABILITA EL PULL UP DEL PUERTO B EN EL PIN 4
+            IOCBbits.IOCB4 = 1; //HABILITA LA INTERRUPCIÓN DEL PIN 4
+            break;
+            
+        case 5:
+            TRISBbits.TRISB5 = 1; //HABILITA EL PUERTO 1 COMO ENTRADA
+            PORTBbits.RB5 = 0; //LIMPIA EL PUERTO
+          
+            WPUBbits.WPUB5 = 1; //HABILITA EL PULL UP DEL PUERTO B EN EL PIN 5
+            IOCBbits.IOCB5 = 1; //HABILITA LA INTERRUPCIÓN DEL PIN 5
+            break;
+            
+        case 6:
+            TRISBbits.TRISB6 = 1; //HABILITA EL PUERTO 1 COMO ENTRADA
+            PORTBbits.RB6 = 0; //LIMPIA EL PUERTO
+          
+            WPUBbits.WPUB6 = 1; //HABILITA EL PULL UP DEL PUERTO B EN EL PIN 6
+            IOCBbits.IOCB6 = 1; //HABILITA LA INTERRUPCIÓN DEL PIN 6
+            break;
+            
+        case 7:
+            TRISBbits.TRISB7 = 1; //HABILITA EL PUERTO 1 COMO ENTRADA
+            PORTBbits.RB7 = 0; //LIMPIA EL PUERTO
+          
+            WPUBbits.WPUB7 = 1; //HABILITA EL PULL UP DEL PUERTO B EN EL PIN 7
+            IOCBbits.IOCB7 = 1; //HABILITA LA INTERRUPCIÓN DEL PIN 7
+            break;
+            
+        default:
+            PORTA++;
+            TRISB = 0b11111111;
+            PORTB = 0x00;
+            WPUB = 0b11111111;
+            IOCB = 0b11111111;
+            break;
+    }
+}
+
+
+void adc_init (int channel)
+{
+    //CONFIGURACIÓN DEL ADC
+    ADCON0bits.ADCS = 0b01; //FOSC/8
+    ADCON1bits.ADFM = 0; //JUSTIFICACIÓN A LA IZQUIERDA
+    ADCON1bits.VCFG1 = 0; //VSS 
+    ADCON1bits.VCFG1 = 0; //VDD VOLTAJES DE REFERENCIA
+    
+    switch (channel){
+        case 0:
+            //CONFIGURACIÓN DEL ADC
+            ADCON0bits.CHS = 0b0000; //CANAL ANALÓGICO 0
+            //FIN DE LA CONFIGURACIÓN DEL ADC
+            break;
+        case 1:
+            //CONFIGURACIÓN DEL ADC
+            ADCON0bits.CHS = 0b0001; //CANAL ANALÓGICO 1
+            //FIN DE LA CONFIGURACIÓN DEL ADC
+            break;
+        case 2:
+            //CONFIGURACIÓN DEL ADC
+            ADCON0bits.CHS = 0b0010; //CANAL ANALÓGICO 2
+            //FIN DE LA CONFIGURACIÓN DEL ADC
+            break;
+        case 3:
+            //CONFIGURACIÓN DEL ADC
+            ADCON0bits.CHS = 0b0011; //CANAL ANALÓGICO 3
+            //FIN DE LA CONFIGURACIÓN DEL ADC
+            break;
+        case 4:
+            //CONFIGURACIÓN DEL ADC
+            ADCON0bits.CHS = 0b0100; //CANAL ANALÓGICO 4
+            //FIN DE LA CONFIGURACIÓN DEL ADC
+            break;
+        case 5:
+            //CONFIGURACIÓN DEL ADC
+            ADCON0bits.CHS = 0b0101; //CANAL ANALÓGICO 5
+            //FIN DE LA CONFIGURACIÓN DEL ADC
+            break;
+        default:
+            ADCON0bits.CHS = 0b0000;
+            break;
+    }
+        
+        //BANDERAS DEL ADC
+    PIR1bits.ADIF = 0; //COLOCA LA BANDERA DEL ADC EN 0
+    PIE1bits.ADIE = 1; //HABILITA LA BANDERA DEL ADC
+    
+    
+        //FIN DE LAS BANDERAS DEL ADC
+    
+     __delay_us(50);
+    ADCON0bits.ADON = 1; //HABILITA EL MÓDULO ADC
+    
+    ADCON0bits.GO = 1; //REALIZA CONVERSIÓN DEL ADC
+    //FIN DE LA CONFIGURACIÓN DEL ADC
+    
+    return;
+};
+
+int adc_read()
+{
+    return ADRESH; 
+}
+
+void adc_change_channel(int channel)
+{
+    switch (channel){
+        case 0:
+            //CONFIGURACIÓN DEL ADC
+            ADCON0bits.CHS = 0b0000; //CANAL ANALÓGICO 0
+            //FIN DE LA CONFIGURACIÓN DEL ADC
+            break;
+        case 1:
+            //CONFIGURACIÓN DEL ADC
+            ADCON0bits.CHS = 0b0001; //CANAL ANALÓGICO 1
+            //FIN DE LA CONFIGURACIÓN DEL ADC
+            break;
+        case 2:
+            //CONFIGURACIÓN DEL ADC
+            ADCON0bits.CHS = 0b0010; //CANAL ANALÓGICO 2
+            //FIN DE LA CONFIGURACIÓN DEL ADC
+            break;
+        case 3:
+            //CONFIGURACIÓN DEL ADC
+            ADCON0bits.CHS = 0b0011; //CANAL ANALÓGICO 3
+            //FIN DE LA CONFIGURACIÓN DEL ADC
+            break;
+        case 4:
+            //CONFIGURACIÓN DEL ADC
+            ADCON0bits.CHS = 0b0100; //CANAL ANALÓGICO 4
+            //FIN DE LA CONFIGURACIÓN DEL ADC
+            break;
+        case 5:
+            //CONFIGURACIÓN DEL ADC
+            ADCON0bits.CHS = 0b0101; //CANAL ANALÓGICO 5
+            //FIN DE LA CONFIGURACIÓN DEL ADC
+            break;
+        default:
+            ADCON0bits.CHS = 0b0000;
+            break;
+    }
+    return;
+};
+
+int adc_get_channel()
+{
+    char canal = ADCON0bits.CHS;
+    return canal;
+};
